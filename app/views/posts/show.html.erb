@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<%= form_tag create_comment_to_post_path, id: "comment" do %>
+  <%= text_field_tag :body %>
+  <%= button_tag "add_comment" %>
+<% end %>
+
+<%= link_to 'Edit', edit_post_path(@post) %>
+<%= link_to 'Back', posts_path %>
+<table class = "table" id ="comment_table">
+  <thead>
+    <tr>
+      <th> 댓글 </th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @post.comments.reverse.each do |p|%>
+      <tr>
+        <td> <%=p.body %> </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+<script>
+  $(function(){
+    var form = $('#comment');
+    form.on('submit', function(e) {
+      e.preventDefault(); ///posts/1/create_comment가 발생하지 않도록 함.submit자체의 default event와의 연결을 끊어줌.  a href등도 막을 수 있다. form에서 ruby가 submit을 눌렀을 때 create로 보내는 event가 일어나지 않게 한다.
+      var contents = $('#body').val();
+      console.log(contents);
+      $.ajax({
+        url: "<%= create_comment_to_post_path %>",
+        method: "POST",
+        data: {body: contents}
+      });
+      console.log("done");
+    });
+  });
+
+</script>

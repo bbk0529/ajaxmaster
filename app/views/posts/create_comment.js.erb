@@ -1,0 +1,8 @@
+alert("댓글이 등록되었슴");
+// 1.  table을 넣어놓고 보내주는거
+// 2. 그냥 append하는 것
+
+$('#body').val("");
+$('#comment_table tbody').prepend(
+  '<tr><td><%=@c.body%></td></td>'
+);

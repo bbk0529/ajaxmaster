@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ajaxmaster</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+
+  <body>
+      <% if user_signed_in? %>
+        <%=link_to "sign out", destroy_user_session_path, method: :delete, data: {confirm: "are you sure"} %>
+      <% else %>
+        <%=link_to "sign in", new_user_session_path %>
+      <%end %>
+
+      <%=link_to "home", root_path %>
+
+    <div class="container">
+      <%= yield %>
+
+    </div>
+
+  </body>
+</html>
